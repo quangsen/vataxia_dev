@@ -2,6 +2,7 @@ import uuid
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from accounts.managers.user_manager import UserManager
+from django.contrib import admin
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -32,4 +33,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         if not self.password:
             self.password = str(uuid.uuid4()).replace('-', '')
         super(User, self).save(*args, **kwargs)
-

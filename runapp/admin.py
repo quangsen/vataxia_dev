@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from .models import MyUser, Book
+from .models import MyUser, Book, Author
 
 
 class UserCreationForm(forms.ModelForm):
@@ -93,3 +93,5 @@ class AuthorAdmin(admin.ModelAdmin):
     inlines = [
         BookInline,
     ]
+
+admin.site.register(Author, AuthorAdmin)

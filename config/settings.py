@@ -38,14 +38,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'runapp',
     'accounts',
     'utils',
     'user_roles',
-    'general'
+    'general',
+    'credits',
+    'filters',
+    'posts',
+    'private_messages',
+    'replies',
+    'votes',
 ]
 
-AUTH_USER_MODEL = 'runapp.MyUser'
+AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -130,3 +137,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 ADMIN_LOGIN='quangnv'
 ADMIN_PASSWORD='pbkdf2_sha256$150000$Vz4hv9bO4v2W$mWzUSeph2EGfb5iYxnQLHWmpDHKCaJyLjQbGKJRv5HU='
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', )
+}

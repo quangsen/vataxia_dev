@@ -19,9 +19,11 @@ from django.conf.urls import include,url
 
 urlpatterns = [
     # api
-    url(r'^', include('accounts.urls')),
-    url(r'^runapp/', include('runapp.urls')),
-    url(r'^user_roles/', include('user_roles.urls')),
+    url(r'^api/accounts/', include('accounts.urls')),
+    url(r'^api/runapp/', include('runapp.urls')),
+    url(r'^api/user_roles/', include('user_roles.urls')),
+    url(r'^api/votes/', include('votes.urls')),
+    url(r'^api/posts/', include('posts.urls')),
     # admin
     path('admin/', admin.site.urls),
 ]

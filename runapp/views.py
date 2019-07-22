@@ -9,22 +9,32 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers.comment_serializer import CommentSerializer
 from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+from django.http import JsonResponse
 
 
 
-@csrf_exempt
-@api_view(['GET', 'POST'])
-def runapp_index(request):
-    # comment = UserSerializer(request.data)
-    # if comment.is_valid():
-    #     return Response(comment.data)
-    # return Response(comment.data)
-    if request.method == 'POST':
-        comment = CommentSerializer(data = request.data)
-        if comment.is_valid():
-            return Response(comment.data)
-        return Response(comment.errors, status=status.HTTP_400_BAD_REQUEST)
-    return Response({'tim': 'bcm'})
+# class RunappIndex(APIView):
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # permission_classes = [IsAuthenticated]
+
+    # def get(self, request, format=None):
+    #     content = {
+    #         'user': unicode(request.user),  # `django.contrib.auth.User` instance.
+    #         'auth': unicode(request.auth),  # None
+    #     }
+    #     return Response(content)
+
+class RunappIndex(APIView):
+    def get(self, request, format=None):
+        token = Token.objects.create(user=...)
+        print(token.key)
 
 @csrf_exempt
 def authenticate(request, username=None, password=None, *args, **kwargs):
@@ -55,3 +65,13 @@ def get_user(user_id):
         return None
 
 
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+@api_view(['GET', 'POST'])
+def create_auth_token(request):
+    tim = []
+    for user in User.objects.all():
+        ken = Token.objects.get_or_create(user=user)
+        print(Token.objects.get_or_create(user=user))
+        tim.append(ken)
+    return HttpResponse(tim)
+     
