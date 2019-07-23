@@ -6,7 +6,7 @@ from accounts.models.user import User
 from django.conf import settings
 import json
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from .serializers.comment_serializer import CommentSerializer
 from rest_framework import status
 from rest_framework.views import APIView
@@ -17,6 +17,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.http import JsonResponse
+from rest_framework.authtoken.views import ObtainAuthToken
 
 
 
@@ -65,13 +66,12 @@ def get_user(user_id):
         return None
 
 
-# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-@api_view(['GET', 'POST'])
-def create_auth_token(request):
-    tim = []
-    for user in User.objects.all():
-        ken = Token.objects.get_or_create(user=user)
-        print(Token.objects.get_or_create(user=user))
-        tim.append(ken)
-    return HttpResponse(tim)
+class create_auth_token(ObtainAuthToken):
+    def get(self, request):
+        tim = []
+        for user in User.objects.all():
+            ken = Token.objects.get_or_create(user=user)
+            print(Token.objects.get_or_create(user=user))
+            tim.append(ken)
+        return HttpResponse(tim)
      

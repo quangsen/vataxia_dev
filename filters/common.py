@@ -5,9 +5,9 @@ from utils import constants
 
 def filter_query_params(allowed, query, request):
     kwargs = {}
-    for param in allowed.keys() & request.query_params.keys():
-        try:
-            kwargs[param] = allowed[param](request.query_params[param])
-        except Exception as e:
-            return Response({constants.ERROR: {param: str(e)}}, status=status.HTTP_400_BAD_REQUEST)
+    # for param in allowed.keys() & request.query_params.keys():
+    #     try:
+    #         kwargs[param] = allowed[param](request.query_params[param])
+    #     except Exception as e:
+    #         return Response({constants.ERROR: {param: str(e)}}, status=status.HTTP_400_BAD_REQUEST)
     return query.filter(**kwargs)

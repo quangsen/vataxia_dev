@@ -51,3 +51,18 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+class Album(models.Model):
+    album_name = models.CharField(max_length=200)
+    artist = models.CharField(max_length=200)
+    tracks = models.CharField(max_length=200)
+
+
+class Track(models.Model):
+    order = models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
+    duration = models.IntegerField()
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+
+
